@@ -14,9 +14,10 @@ jobs:
         distribution: 'temurin'
     - name: Build APK
       run: |
-        if [ -f "gradlew" ]; then
-          chmod +x gradlew
-          ./gradlew assembleDebug
-        else
-          echo "No gradlew found yet"
-        fi
+        gradle wrapper
+        ./gradlew assembleDebug
+    - name: Upload APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: app-debug
+        path: app/build/outputs/apk/debug/*.apk
